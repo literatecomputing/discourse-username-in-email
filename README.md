@@ -1,4 +1,4 @@
-# **Plugin Name** Plugin
+# **Discourse Username In Email** Plugin
 
 **Plugin Summary**
 
