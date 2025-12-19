@@ -59,3 +59,11 @@ bin/rails runner "user = User.last; post = Post.last; opts = { post: post, notif
 ```
 
 This command generates a sample email notification using the last user and post in your database and prints the HTML body to the console. You should see your changes at the bottom of the output.
+
+### Testing Negative Cases (Should NOT show username)
+
+To verify that the username is NOT shown for other notification types (like replies), run:
+
+```bash
+bin/rails runner "user = User.last; post = Post.last; opts = { post: post, notification_type: 'replied', notification_data_hash: { original_username: post.user.username, topic_title: post.topic.title } }; email = UserNotifications.user_replied(user, opts); puts email.html_part.body.to_s"
+```
