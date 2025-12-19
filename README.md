@@ -2,6 +2,8 @@
 
 This plugin adds the recipient's username to the bottom of email notifications in Discourse.
 
+**Note:** The username is only added to notifications for watched topics, categories, or tags. It is NOT added to direct replies, mentions, or private messages.
+
 ## Customization
 
 If you want to change how the username is displayed or add extra text (like "This email was sent to: ..."), you can modify the template file included in this plugin.

@@ -25,7 +25,13 @@ after_initialize do
   module ::UserNotificationsExtension
     def send_notification_email(opts)
       if opts[:post] && opts[:user]
-        opts[:post].recipient_username = opts[:user].username
+        # Only add username for watched topics/categories
+        # "posted" is used for watched topics, but also overridden for PMs, so we exclude PMs explicitly.
+        watched_types = %w[posted watching_category_or_tag watching_first_post]
+
+        if watched_types.include?(opts[:notification_type].to_s) && !opts[:post].topic.private_message?
+          opts[:post].recipient_username = opts[:user].username
+        end
       end
       super
     end
