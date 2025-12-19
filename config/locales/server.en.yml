@@ -1,1 +1,5 @@
 en:
+  site_settings:
+    discourse_username_in_email_enabled: "Enable the Discourse Username In Email plugin"
+    discourse_username_in_email_watermark_enabled: "Add a watermark of the username to the email background"
+    discourse_username_in_email_intended_for_text: "Text to display at the bottom of the email. Use 'username' as a placeholder for the recipient's username."

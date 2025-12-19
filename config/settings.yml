@@ -2,3 +2,7 @@ discourse_username_in_email:
   discourse_username_in_email_enabled:
     default: false
     client: true
+  discourse_username_in_email_watermark_enabled:
+    default: false
+  discourse_username_in_email_intended_for_text:
+    default: "This email is intended for username"

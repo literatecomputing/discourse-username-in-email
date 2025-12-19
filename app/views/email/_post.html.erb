@@ -1,4 +1,17 @@
-<div class='post-wrapper <%= post.whisper? ? "whisper" : "" %> <%= use_excerpt ? "excerpt" : ""%>'>
+<%
+  watermark_style = ""
+  if post.recipient_username && SiteSetting.discourse_username_in_email_watermark_enabled
+    require 'base64'
+    svg = <<~SVG
+      <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+        <text x='50%' y='50%' font-family='sans-serif' font-size='30' fill='#f0f0f0' transform='rotate(-45 150 150)' text-anchor='middle'>#{post.recipient_username}</text>
+      </svg>
+    SVG
+    encoded_svg = Base64.strict_encode64(svg)
+    watermark_style = "background-image: url('data:image/svg+xml;base64,#{encoded_svg}'); background-repeat: repeat;"
+  end
+%>
+<div class='post-wrapper <%= post.whisper? ? "whisper" : "" %> <%= use_excerpt ? "excerpt" : ""%>' style='<%= watermark_style %>'>
   <table>
     <tr>
       <td class='user-avatar'>
@@ -27,7 +40,7 @@
   <div class='body'><%= format_for_email(post, use_excerpt) %></div>
   <% if post.recipient_username %>
     <div class='recipient-username'>
-      <%= post.recipient_username %>
+      <%= SiteSetting.discourse_username_in_email_intended_for_text.gsub("username", post.recipient_username) %>
     </div>
   <% end %>
 </div>
