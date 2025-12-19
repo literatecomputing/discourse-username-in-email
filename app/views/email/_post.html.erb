@@ -37,8 +37,30 @@
       </td>
     </tr>
   </table>
-  <div class='body'><%= format_for_email(post, use_excerpt) %></div>
-  <% if post.recipient_username %>
+  <div class='body'>
+    <%
+      body_html = format_for_email(post, use_excerpt)
+      if post.recipient_username && SiteSetting.discourse_username_in_email_inject_mid_body
+        safe_username = ERB::Util.html_escape(post.recipient_username)
+        text = SiteSetting.discourse_username_in_email_intended_for_text.gsub("username", safe_username)
+        injection_text = "<div class='recipient-username-mid-body' style='color: #888; font-size: 80%; margin: 10px 0;'>#{text}</div>".html_safe
+        
+        # Find all paragraph closing tags
+        indices = body_html.enum_for(:scan, /<\/p>/).map { Regexp.last_match.end(0) }
+        
+        if indices.any?
+          # Insert after the middle paragraph
+          insert_at = indices[indices.length / 2]
+          body_html.insert(insert_at, injection_text)
+        else
+          # Fallback: append if no paragraphs found (though format_for_email usually has them)
+          body_html += injection_text
+        end
+      end
+    %>
+    <%= body_html %>
+  </div>
+  <% if post.recipient_username && SiteSetting.discourse_username_in_email_footer_enabled %>
     <div class='recipient-username'>
       <%= SiteSetting.discourse_username_in_email_intended_for_text.gsub("username", post.recipient_username) %>
     </div>

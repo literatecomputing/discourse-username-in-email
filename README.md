@@ -1,14 +1,20 @@
 # Discourse Username In Email Plugin
 
-This plugin adds the recipient's username to the bottom of email notifications in Discourse. It also adds a subtle watermark of the username to the background of the email content.
+This plugin adds the recipient's username to the bottom of email notifications in Discourse. It also supports adding a subtle watermark of the username to the background, and injecting the username into the middle of the email body.
 
-**Note:** The username and watermark are only added to notifications for watched topics, categories, or tags. They are NOT added to direct replies, mentions, or private messages.
+**Note:** The username, watermark, and body injection are only added to notifications for watched topics, categories, or tags. They are NOT added to direct replies, mentions, or private messages.
 
 ## Customization
 
-You can customize the text displayed at the bottom of the email using the `discourse_username_in_email_intended_for_text` site setting. Use `username` as a placeholder for the recipient's username.
+You can customize the text displayed using the `discourse_username_in_email_intended_for_text` site setting. Use `username` as a placeholder for the recipient's username.
 
 Example: `This email is intended for username`
+
+### Features
+
+*   **Footer Text**: Adds the intended for text to the bottom of the email. (Enable via `discourse_username_in_email_footer_enabled`, default: true)
+*   **Watermark**: Adds a subtle background watermark. (Enable via `discourse_username_in_email_watermark_enabled`)
+*   **Mid-Body Injection**: Injects the intended for text into the middle of the email body (between paragraphs). (Enable via `discourse_username_in_email_inject_mid_body`)
 
 If you need more advanced customization (like changing HTML structure or styles), you can modify the template file included in this plugin.
 

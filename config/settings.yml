@@ -6,3 +6,7 @@ discourse_username_in_email:
     default: false
   discourse_username_in_email_intended_for_text:
     default: "This email is intended for username"
+  discourse_username_in_email_inject_mid_body:
+    default: false
+  discourse_username_in_email_footer_enabled:
+    default: true
